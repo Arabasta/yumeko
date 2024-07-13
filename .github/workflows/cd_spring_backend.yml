@@ -34,6 +34,6 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./spring_backend
           push: true
           tags: ${{ secrets.KEI_DOCKER_USERNAME }}/oracle_spring_backend:${{ github.sha }}
