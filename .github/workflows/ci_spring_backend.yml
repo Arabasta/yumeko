@@ -26,4 +26,4 @@ jobs:
 
     - name: Build with Maven
       working-directory: ./spring_backend
-      run: mvn -B package --file pom.xml -D skipTests
+      run: mvn -B package --file pom.xml
