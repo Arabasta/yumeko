@@ -19,6 +19,7 @@ jobs:
           cache: maven
 
       - name: Build with Maven
+        working-directory: ./spring_backend
         run: mvn -B package --file pom.xml
 
       - name: Set up Docker buildx
