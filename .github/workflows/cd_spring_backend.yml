@@ -1,4 +1,4 @@
-name: CD 
+name: CD with Docker and AWS
 
 on:
   push:
@@ -37,3 +37,21 @@ jobs:
           context: ./spring_backend
           push: true
           tags: ${{ secrets.KEI_DOCKER_USERNAME }}/oracle_spring_backend:${{ github.sha }}
+
+      - name: Deploy to EC2
+        env:
+          EC2_SSH_KEY: ${{ secrets.KEI_EC2_SSH_KEY }}
+          EC2_PUBLIC_IPV4: ${{ secrets.KEI_EC2_PUBLIC_IPV4 }}
+        run: |
+          echo "${EC2_SSH_KEY}" > /tmp/key.pem
+          chmod 600 /tmp/key.pem
+          ssh -o StrictHostKeyChecking=no -i /tmp/key.pem ec2-user@${{ env.EC2_PUBLIC_IPV4 }} << 'EOF'
+          docker pull ${{ secrets.KEI_DOCKER_USERNAME }}/oracle_spring_backend:${{ github.sha }}
+          docker stop oracle_spring_backend || true
+          docker rm oracle_spring_backend || true
+          docker run -d \
+            --name oracle_spring_backend \
+            -p 8080:8080 \
+            ${{ secrets.KEI_DOCKER_USERNAME }}/oracle_spring_backend:${{ github.sha }}
+          docker logs oracle_spring_backend
+          EOF
