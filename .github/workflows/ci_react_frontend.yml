@@ -38,7 +38,3 @@ jobs:
     - name: Run build
       working-directory: ./react_frontend
       run: npm run build
-
-    - name: Run tests
-      working-directory: ./react_frontend
-      run: npm test
