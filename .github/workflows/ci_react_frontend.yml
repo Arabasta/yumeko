@@ -1,0 +1,41 @@
+name: React CI
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'react_frontend/**'
+      - '.github/workflows/ci_react_frontend.yml'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'react_frontend/**'
+      - '.github/workflows/ci_react_frontend.yml'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      working-directory: ./react_frontend
+      run: npm install
+
+    - name: Run build
+      working-directory: ./react_frontend
+      run: npm run build
+
+    - name: Run tests
+      working-directory: ./react_frontend
+      run: npm test
