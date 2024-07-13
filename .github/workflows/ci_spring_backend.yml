@@ -4,9 +4,15 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'spring_backend/**'
+      - '.github/workflows/ci_spring_backend.yml'
   pull_request:
     branches:
       - master
+    paths:
+      - 'spring_backend/**'
+      - '.github/workflows/ci_spring_backend.yml'
 
 jobs:
   build:
