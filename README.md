@@ -1,4 +1,4 @@
-# Full Stack React | Springboot | AWS | Github Actions
+# React | Springboot | AWS | Github Actions
 
 This project consists of a frontend React application deployed on S3 and a Spring Boot backend API deployed on EC2
 
