@@ -17,13 +17,11 @@ The backend Spring Boot application is built and pushed to Docker Hub then deplo
 
 ## Frontend
 
-The frontend React application is deployed on S3 and can be accessed here:
-[http://oci-intern-challenge-bucket.s3-website-ap-southeast-1.amazonaws.com](http://oci-intern-challenge-bucket.s3-website-ap-southeast-1.amazonaws.com)
+The frontend React application is deployed on S3 and can be accessed here: NO LONGER HOSTING
 
 ## Backend
 
-The backend Spring Boot API can be tested with the following endpoint:
-[http://13.228.168.109:8080/api/v1/coin-change](http://13.228.168.109:8080/api/v1/coin-change)
+The backend Spring Boot API can be tested with the following endpoint: NO LONGER HOSTING
 
 
 <br>
