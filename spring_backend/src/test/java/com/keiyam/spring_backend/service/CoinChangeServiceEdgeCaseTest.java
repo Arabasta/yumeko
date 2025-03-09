@@ -1,13 +1,14 @@
 package com.keiyam.spring_backend.service;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
-import com.keiyam.spring_backend.interfaces.ICoinChangeService;
+import com.keiyam.spring_backend.service.interfaces.ICoinChangeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Deque;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,9 +35,12 @@ class CoinChangeServiceEdgeCaseTest {
                 new BigDecimal("10")
         ));
 
-        List<Double> result = coinChangeService.calculateMinCoinChange(request);
+        Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);
 
-        assertEquals(Arrays.asList(10.0), result);
+        Deque<BigDecimal> expected = new ArrayDeque<>();
+        expected.add(new BigDecimal("10.00"));
+
+        assertEquals(expected, result);
     }
 
     @Test
@@ -51,7 +55,7 @@ class CoinChangeServiceEdgeCaseTest {
                 new BigDecimal("1")
         ));
 
-        List<Double> result = coinChangeService.calculateMinCoinChange(request);
+        Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);
 
         assertTrue(result.isEmpty());
     }
@@ -73,9 +77,14 @@ class CoinChangeServiceEdgeCaseTest {
                 new BigDecimal("1000")
         ));
 
-        List<Double> result = coinChangeService.calculateMinCoinChange(request);
-        assertEquals(Arrays.asList(1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0), result);
+        Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);
 
+        Deque<BigDecimal> expected = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            expected.add(new BigDecimal("1000.00"));
+        }
+
+        assertEquals(expected, result);
         assertFalse(result.isEmpty());
     }
 }

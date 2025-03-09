@@ -1,15 +1,17 @@
 package com.keiyam.spring_backend.service;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
-import com.keiyam.spring_backend.interfaces.ICoinChangeService;
+import com.keiyam.spring_backend.service.interfaces.ICoinChangeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Deque;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class CoinChangeServiceTest {
 
@@ -33,9 +35,15 @@ class CoinChangeServiceTest {
                 new BigDecimal("5")
         ));
 
-        List<Double> result = coinChangeService.calculateMinCoinChange(request);
+        Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);
 
-        assertEquals(Arrays.asList(0.25, 1.0, 5.0, 5.0), result);
+        Deque<BigDecimal> expected = new ArrayDeque<>();
+        expected.add(new BigDecimal("0.25"));
+        expected.add(new BigDecimal("1.00"));
+        expected.add(new BigDecimal("5.00"));
+        expected.add(new BigDecimal("5.00"));
+
+        assertEquals(expected, result);
     }
 
     @Test
@@ -50,9 +58,13 @@ class CoinChangeServiceTest {
                 new BigDecimal("1")
         ));
 
-        List<Double> result = coinChangeService.calculateMinCoinChange(request);
+        Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);
 
-        assertEquals(Arrays.asList(0.01, 0.01), result);
+        Deque<BigDecimal> expected = new ArrayDeque<>();
+        expected.add(new BigDecimal("0.01"));
+        expected.add(new BigDecimal("0.01"));
+
+        assertEquals(expected, result);
     }
 
     @Test
@@ -72,10 +84,37 @@ class CoinChangeServiceTest {
                 new BigDecimal("1000")
         ));
 
-        List<Double> result = coinChangeService.calculateMinCoinChange(request);
-        assertEquals(Arrays.asList(0.01, 0.01, 0.01, 0.01, 0.25, 0.25, 1.0, 5.0, 10.0, 10.0, 50.0, 100.0, 100.0,
-                100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0), result);
+        Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);
 
+        Deque<BigDecimal> expected = new ArrayDeque<>();
+        expected.add(new BigDecimal("0.01"));
+        expected.add(new BigDecimal("0.01"));
+        expected.add(new BigDecimal("0.01"));
+        expected.add(new BigDecimal("0.01"));
+        expected.add(new BigDecimal("0.25"));
+        expected.add(new BigDecimal("0.25"));
+        expected.add(new BigDecimal("1.00"));
+        expected.add(new BigDecimal("5.00"));
+        expected.add(new BigDecimal("10.00"));
+        expected.add(new BigDecimal("10.00"));
+        expected.add(new BigDecimal("50.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("100.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+        expected.add(new BigDecimal("1000.00"));
+
+        assertEquals(expected, result);
         assertFalse(result.isEmpty());
     }
 }

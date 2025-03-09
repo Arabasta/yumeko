@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Deque;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class CoinChangeResponse {
-    private List<Double> coins;
+    private Deque<BigDecimal> coins;
 }

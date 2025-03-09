@@ -2,23 +2,22 @@ package com.keiyam.spring_backend.service;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.exception.InvalidCoinChangeRequestException;
-import com.keiyam.spring_backend.interfaces.ICoinChangeService;
+import com.keiyam.spring_backend.service.interfaces.ICoinChangeService;
 import com.keiyam.spring_backend.util.ListUtil;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayDeque;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.Deque;
 import java.util.List;
 
-// ref for BigDecimal: https://stackoverflow.com/questions/6713673/how-can-i-handle-precision-error-with-float-in-java
 /**
  * Service for calculating the minimum number of coins needed to make up a given amount.
  */
 @Service
-public class CoinChangeService implements
-        ICoinChangeService {
+public class CoinChangeService implements ICoinChangeService {
 
     /**
      * Calculates the minimum number of coins needed to make up the given amount using the provided denominations.
@@ -28,10 +27,10 @@ public class CoinChangeService implements
      * @throws InvalidCoinChangeRequestException if the exact amount cannot be made with the given denominations
      */
     @Override
-    public List<Double> calculateMinCoinChange(CoinChangeRequest request) {
+    public Deque<BigDecimal> calculateMinCoinChange(CoinChangeRequest request) {
         BigDecimal amount = request.getAmount();
         List<BigDecimal> denominations = request.getDenominations();
-        LinkedList<Double> result = new LinkedList<>();
+        Deque<BigDecimal> result = new ArrayDeque<>();
 
         sortDenominationsIfNeeded(denominations);
 
@@ -66,7 +65,7 @@ public class CoinChangeService implements
      * @param result        the list to store the resulting coins
      * @return the remaining amount after calculating the minimum number of coins
      */
-    private BigDecimal calculateCoins(BigDecimal amount, List<BigDecimal> denominations, LinkedList<Double> result) {
+    private BigDecimal calculateCoins(BigDecimal amount, List<BigDecimal> denominations, Deque<BigDecimal> result) {
         for (int i = denominations.size() - 1; i >= 0; i--) {
             BigDecimal currentDenomination = denominations.get(i);
 
@@ -80,16 +79,16 @@ public class CoinChangeService implements
     }
 
     /**
-     * Adds the number of coins to the HEAD of the result linked list
+     * Adds the number of coins to deque
      * Time complexity: O(n)
      *
      * @param denomination the coin denomination to add
      * @param numCoins     the number of coins to add
      * @param result       the list to store the resulting coins
      */
-    private void addCoinsToResult(BigDecimal denomination, int numCoins, LinkedList<Double> result) {
-        for (int j = 0; j < numCoins; j++) {
-            result.addFirst(denomination.doubleValue()); // add to head so sorting in ascending isn't needed
+    private void addCoinsToResult(BigDecimal denomination, int numCoins, Deque<BigDecimal> result) {
+        for (int i = 0; i < numCoins; i++) {
+            result.addFirst(denomination); // add to head so sorting in ascending isn't needed
         }
     }
 }

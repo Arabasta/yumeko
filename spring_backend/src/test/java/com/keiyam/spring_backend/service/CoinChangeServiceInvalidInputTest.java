@@ -2,12 +2,13 @@ package com.keiyam.spring_backend.service;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.exception.InvalidCoinChangeRequestException;
-import com.keiyam.spring_backend.interfaces.ICoinChangeService;
+import com.keiyam.spring_backend.service.interfaces.ICoinChangeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,7 +45,7 @@ class CoinChangeServiceInvalidInputTest {
     void testCalculateMinCoinChange_EmptyDenominations() {
         CoinChangeRequest request = new CoinChangeRequest();
         request.setAmount(new BigDecimal("10.00"));
-        request.setDenominations(Arrays.asList());
+        request.setDenominations(List.of());
 
         InvalidCoinChangeRequestException exception = assertThrows(
                 InvalidCoinChangeRequestException.class,

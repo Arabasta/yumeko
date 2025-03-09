@@ -1,11 +1,14 @@
 package com.keiyam.spring_backend.validator;
 
+import com.keiyam.spring_backend.config.DenominationConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,7 +19,26 @@ class DenominationValidatorTest {
 
     @BeforeEach
     void setUp() {
-        validator = new DenominationValidator();
+        MockitoAnnotations.openMocks(this);
+
+        DenominationConfig config = new DenominationConfig();
+        config.setDenominations(Set.of(
+                BigDecimal.valueOf(0.01),
+                BigDecimal.valueOf(0.05),
+                BigDecimal.valueOf(0.1),
+                BigDecimal.valueOf(0.2),
+                BigDecimal.valueOf(0.5),
+                BigDecimal.valueOf(1),
+                BigDecimal.valueOf(2),
+                BigDecimal.valueOf(5),
+                BigDecimal.valueOf(10),
+                BigDecimal.valueOf(50),
+                BigDecimal.valueOf(100),
+                BigDecimal.valueOf(1000)
+        ));
+
+        validator = new DenominationValidator(config);
+        validator.initialize(null);
     }
 
     @Test
