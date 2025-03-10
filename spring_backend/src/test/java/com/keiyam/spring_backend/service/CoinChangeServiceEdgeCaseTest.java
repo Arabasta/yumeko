@@ -18,7 +18,7 @@ class CoinChangeServiceEdgeCaseTest {
 
     @BeforeEach
     void setUp() {
-        coinChangeService = new CoinChangeService();
+        coinChangeService = new GreedyCoinChangeService();
     }
 
     @Test
@@ -71,10 +71,10 @@ class CoinChangeServiceEdgeCaseTest {
                 new BigDecimal("0.25"),
                 new BigDecimal("1"),
                 new BigDecimal("5"),
-                new BigDecimal("10"),
-                new BigDecimal("50"),
-                new BigDecimal("100"),
-                new BigDecimal("1000")
+                new BigDecimal("10.00"),
+                new BigDecimal("50.00"),
+                new BigDecimal("100.00"),
+                new BigDecimal("1000.00")
         ));
 
         Deque<BigDecimal> result = coinChangeService.calculateMinCoinChange(request);

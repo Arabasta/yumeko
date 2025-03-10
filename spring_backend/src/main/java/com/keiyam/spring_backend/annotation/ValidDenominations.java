@@ -9,7 +9,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// ref for custom annotations: https://www.baeldung.com/spring-mvc-custom-validator
 /**
  * Custom annotation for validating coin denominations.
  * Ensures that the list of denominations contains only valid values.

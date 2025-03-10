@@ -19,7 +19,7 @@ class CoinChangeServiceTest {
 
     @BeforeEach
     void setUp() {
-        coinChangeService = new CoinChangeService();
+        coinChangeService = new GreedyCoinChangeService();
     }
 
     @Test

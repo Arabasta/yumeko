@@ -22,7 +22,7 @@ class DenominationValidatorTest {
         MockitoAnnotations.openMocks(this);
 
         DenominationConfig config = new DenominationConfig();
-        config.setDenominations(Set.of(
+        config.setDenominations((List<BigDecimal>) Set.of(
                 BigDecimal.valueOf(0.01),
                 BigDecimal.valueOf(0.05),
                 BigDecimal.valueOf(0.1),

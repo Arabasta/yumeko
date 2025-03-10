@@ -5,14 +5,16 @@ import com.keiyam.spring_backend.config.DenominationConfig;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 
-//ref for custom annotations: https://www.baeldung.com/spring-mvc-custom-validator
 /**
  * Validator for checking if the provided denominations are valid.
  */
+@Component
 public class DenominationValidator implements
         ConstraintValidator<ValidDenominations, List<BigDecimal>> {
 
@@ -40,12 +42,7 @@ public class DenominationValidator implements
             return true;
         }
 
-        for (BigDecimal denomination : denominations) {
-            if (!denominationConfig.getDenominations().contains(denomination)) {
-                return false;
-            }
-        }
-        return true;
+        return new HashSet<>(denominationConfig.getDenominations()).containsAll(denominations);
     }
 
 }

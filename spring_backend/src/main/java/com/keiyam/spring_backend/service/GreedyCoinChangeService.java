@@ -2,14 +2,11 @@ package com.keiyam.spring_backend.service;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.exception.InvalidCoinChangeRequestException;
-import com.keiyam.spring_backend.service.interfaces.ICoinChangeService;
-import com.keiyam.spring_backend.util.ListUtil;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayDeque;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
@@ -17,7 +14,7 @@ import java.util.List;
  * Service for calculating the minimum number of coins needed to make up a given amount.
  */
 @Service
-public class CoinChangeService implements ICoinChangeService {
+public class GreedyCoinChangeService extends AbstractCoinChangeService {
 
     /**
      * Calculates the minimum number of coins needed to make up the given amount using the provided denominations.
@@ -44,21 +41,7 @@ public class CoinChangeService implements ICoinChangeService {
     }
 
     /**
-     * Sorts the denominations in ascending order if they are not already sorted.
-     * Time complexity: O(n)
-     *                  O(n log n) if sorting is needed
-     *
-     * @param denominations the list of denominations to check and sort
-     */
-    private void sortDenominationsIfNeeded(List<BigDecimal> denominations) {
-        if (!ListUtil.isSortedAscending(denominations)) {
-            Collections.sort(denominations);
-        }
-    }
-
-    /**
      * Calculates the minimum number of coins needed and adds them to the result list.
-     * Time complexity: O(n)
      *
      * @param amount        the amount to be changed
      * @param denominations the list of available denominations
@@ -80,7 +63,6 @@ public class CoinChangeService implements ICoinChangeService {
 
     /**
      * Adds the number of coins to deque
-     * Time complexity: O(n)
      *
      * @param denomination the coin denomination to add
      * @param numCoins     the number of coins to add
