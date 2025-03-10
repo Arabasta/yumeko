@@ -1,3 +1,18 @@
+valid-denominations:
+  denominations:
+    - 0.01
+    - 0.05
+    - 0.1
+    - 0.2
+    - 0.5
+    - 1
+    - 2
+    - 5
+    - 10
+    - 50
+    - 100
+    - 1000
+
 spring:
   cache:
     type: redis
@@ -13,17 +28,14 @@ logging:
     org.springframework.cache: TRACE
     org.springframework.data.redis: DEBUG
 
-valid-denominations:
-  denominations:
-    - 0.01
-    - 0.05
-    - 0.1
-    - 0.2
-    - 0.5
-    - 1
-    - 2
-    - 5
-    - 10
-    - 50
-    - 100
-    - 1000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: spring-backend

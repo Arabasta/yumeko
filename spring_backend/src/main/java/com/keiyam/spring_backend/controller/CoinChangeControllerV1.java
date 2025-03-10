@@ -2,6 +2,7 @@ package com.keiyam.spring_backend.controller;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.dto.CoinChangeResponse;
+import com.keiyam.spring_backend.metrics.RequestMetrics;
 import com.keiyam.spring_backend.service.CoinChangeServiceFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * REST controller for handling coin change requests.
  */
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CoinChangeControllerV1 {
     private static final Logger logger = LoggerFactory.getLogger(CoinChangeControllerV1.class);
     private final CoinChangeServiceFactory coinChangeServiceFactory;
+    private final RequestMetrics requestMetrics;
 
     /**
      * Endpoint to get the minimum number of coins needed to make up the given amount.
@@ -32,8 +36,16 @@ public class CoinChangeControllerV1 {
     @PostMapping("minimum-coins")
     public ResponseEntity<CoinChangeResponse> getMinimumCoins(@Valid @RequestBody CoinChangeRequest request) {
         logger.info("Received request to calculate minimum coins for amount: {}", request.getAmount());
-        var coins = coinChangeServiceFactory.getCoinChangeService().calculateMinCoinChange(request);
-        logger.info("Successfully calculated coins: {}", coins);
-        return ResponseEntity.ok(new CoinChangeResponse(coins));
+        requestMetrics.incrementRequestCount();
+
+        long startTime = System.nanoTime();
+        try {
+            var coins = coinChangeServiceFactory.getCoinChangeService().calculateMinCoinChange(request);
+            logger.info("Successfully calculated coins: {}", coins);
+            return ResponseEntity.ok(new CoinChangeResponse(coins));
+        } finally {
+            long duration = System.nanoTime() - startTime;
+            requestMetrics.recordRequestDuration(duration, TimeUnit.NANOSECONDS);
+        }
     }
 }
