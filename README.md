@@ -33,7 +33,7 @@ docker compose up
 ## API
 Swagger Documentation: http://localhost:8080/swagger-ui.html
 
-api-docs.yml: https://github.com/Arabasta/Mini-Coin/blob/master/api-docs.yml
+api-docs.yml: https://github.com/Arabasta/Mini-Coin/blob/master/api-docs.yaml
 
 #### Request
 
