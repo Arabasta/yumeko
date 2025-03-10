@@ -1,0 +1,61 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/v1/coin-change/minimum-coins:
+    post:
+      tags:
+      - coin-change-controller-v-1
+      operationId: getMinimumCoins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CoinChangeRequest"
+        required: true
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                oneOf:
+                - type: string
+                - type: object
+                  additionalProperties:
+                    type: string
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CoinChangeResponse"
+components:
+  schemas:
+    CoinChangeRequest:
+      required:
+      - amount
+      - denominations
+      type: object
+      properties:
+        amount:
+          maximum: 10000.00
+          exclusiveMaximum: false
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        denominations:
+          type: array
+          items:
+            type: number
+    CoinChangeResponse:
+      type: object
+      properties:
+        coins:
+          type: array
+          items:
+            type: number

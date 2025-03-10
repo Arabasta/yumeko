@@ -31,7 +31,9 @@ docker compose up
 ---
 
 ## API
-Documentation: `http://localhost:8080/swagger-ui.html`
+Swagger Documentation: http://localhost:8080/swagger-ui.html
+
+api-docs.yml: https://github.com/Arabasta/Mini-Coin/blob/master/api-docs.yml
 
 #### Request
 
@@ -62,8 +64,8 @@ The API will respond with the minimum number of coins needed to make the given a
 ---
 
 # Cache
-Redis is used for caching the results of the coin change calculation. The cache is stored in a Redis instance running in a Docker container.
-Cache is evicted when DenominationsConfig.setDenominations() is called.
+Redis is used for caching the results of the coin change calculation. Cache is evicted when DenominationsConfig.setDenominations() is called.
+Docker compose file will run the Redis instance.
 
 Sample logs:
 ```
