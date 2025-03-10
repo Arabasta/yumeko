@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ public class DenominationConfig {
 
     private List<BigDecimal> denominations;
 
+    @CacheEvict(value = "coinChangeResults", allEntries = true)
     public void setDenominations(List<BigDecimal> denominations) {
         this.denominations = denominations;
         logger.info("Loaded denominations: {}", denominations);

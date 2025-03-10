@@ -1,3 +1,18 @@
+spring:
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000  # 1 minute TTL
+  data:
+    redis:
+      port: 6379
+      host: redis
+
+logging:
+  level:
+    org.springframework.cache: TRACE
+    org.springframework.data.redis: DEBUG
+
 valid-denominations:
   denominations:
     - 0.01

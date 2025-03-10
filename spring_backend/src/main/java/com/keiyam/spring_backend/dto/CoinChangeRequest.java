@@ -4,14 +4,17 @@ import com.keiyam.spring_backend.annotation.ValidDenominations;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Getter
-@Setter
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CoinChangeRequest {
 
     @NotNull(message = "Amount cannot be null")
