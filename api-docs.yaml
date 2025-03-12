@@ -5,11 +5,17 @@ info:
 servers:
 - url: http://localhost:8080
   description: Generated server url
+tags:
+- name: Coin Change API
+  description: API for calculating minimum coins for a given amount
 paths:
   /api/v1/coin-change/minimum-coins:
     post:
       tags:
-      - coin-change-controller-v-1
+      - Coin Change API
+      summary: Calculate minimum coins
+      description: Calculate the minimum number of coins needed to make up the given
+        amount
       operationId: getMinimumCoins
       requestBody:
         content:
@@ -19,17 +25,19 @@ paths:
         required: true
       responses:
         "400":
-          description: Bad Request
+          description: Invalid input provided
           content:
             '*/*':
               schema:
-                oneOf:
-                - type: string
-                - type: object
-                  additionalProperties:
-                    type: string
+                type: string
         "200":
-          description: OK
+          description: Successfully calculated coins
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CoinChangeResponse"
+        "500":
+          description: Internal server error
           content:
             '*/*':
               schema:
@@ -48,14 +56,30 @@ components:
           minimum: 0
           exclusiveMinimum: false
           type: number
+          description: The amount for which to calculate minimum coins
+          example: 123.45
         denominations:
           type: array
+          description: List of coin denominations
+          example:
+          - 1
+          - 5
+          - 10
+          - 25
           items:
             type: number
+            description: List of coin denominations
     CoinChangeResponse:
       type: object
       properties:
         coins:
           type: array
+          description: List of coins in ascending order
+          example:
+          - 1
+          - 5
+          - 10
+          - 25
           items:
             type: number
+            description: List of coins in ascending order
