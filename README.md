@@ -1,22 +1,24 @@
-# React | Springboot | Docker | Redis | Prometheus | AWS | Github Actions
 
-## Background
+## About
 
-Originally for an internship challenge, expanded on this project by adding a bunch of new stuff.
+Single REST API coin change app. Originally for an internship take home assignment, I expanded on this project by adding a bunch of new stuff.
 
----
+## Tech Stack
 
-## Deployment
-
-##### Frontend
-
-Frontend is deployed to S3 using GitHub Actions. Workflow is defined in `.github/workflows/cd_react_frontend.yml`.
-
-##### Backend
-
-Workflow update in progress...
+- React (not updated)
+- Spring Boot
+- Docker
+- Redis
+- Prometheus / Grafana
+- AWS
+- Github Actions
 
 ---
+
+## Configuration
+
+[application.yml](https://github.com/Arabasta/overengineered-coin-change/blob/master/spring_backend/src/main/resources/application.yml) to change coin denominations. [CoinChangeServiceFactory](https://github.com/Arabasta/overengineered-coin-change/blob/master/spring_backend/src/main/java/com/keiyam/spring_backend/service/CoinChangeServiceFactory.java) will set `coinChangeService` to either Greedy or DP service on application run.
+
 
 ## Running the Project
 
@@ -33,11 +35,11 @@ docker compose up
 ## API
 Swagger Documentation: http://localhost:8080/swagger-ui.html
 
-api-docs.yml: https://github.com/Arabasta/Mini-Coin/blob/master/api-docs.yml
+api-docs.yml: https://github.com/Arabasta/Mini-Coin/blob/master/api-docs.yaml
 
 #### Request
 
-Request endpoint: `http://localhost:8080/api/v1/coin-change`
+POST: `http://localhost:8080/api/v1/coin-change`
 
 ```json
 {
@@ -48,7 +50,7 @@ Request endpoint: `http://localhost:8080/api/v1/coin-change`
 
 #### Response
 
-The API will respond with the minimum number of coins needed to make the given amount.
+The API will respond with the smallest list of coins needed to make the given amount.
 
 ```json
 {
@@ -67,7 +69,7 @@ The API will respond with the minimum number of coins needed to make the given a
 Redis is used for caching the results of the coin change calculation. Cache is evicted when DenominationsConfig.setDenominations() is called.
 Docker compose file will run the Redis instance.
 
-Sample logs:
+Sample logs of cache hit:
 ```
 spring-backend-1  | 2025-03-10T19:45:49.024Z  INFO 1 --- [spring_backend] [nio-8080-exec-1] c.k.s.controller.CoinChangeControllerV1  : Received request to calculate minimum coins for amount: 10
 spring-backend-1  | 2025-03-10T19:45:49.052Z TRACE 1 --- [spring_backend] [nio-8080-exec-1] o.s.cache.interceptor.CacheInterceptor   : Computed cache key '10-341' for operation Builder[public java.util.Deque com.keiyam.spring_backend.service.GreedyCoinChangeService.calculateMinCoinChange(com.keiyam.spring_backend.dto.CoinChangeRequest)] caches=[coinChangeResults] | key='#request.amount.toString() + '-' + #request.denominations.hashCode()' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='' | sync='false'
@@ -92,7 +94,7 @@ Total requests:
 
 `coin_change_requests_total`
 
-Request duration:
+Average request duration:
 
 `rate(coin_change_request_duration_seconds_sum[1m]) / rate(coin_change_request_duration_seconds_count[1m])`
 
@@ -105,4 +107,22 @@ Credentials: admin/admin
 1. Add Prometheus as a data source: http://prometheus:9090
 2. Create dashboard
 
+## Deployment
+
+##### Frontend
+
+Frontend deployed to S3 using GitHub Actions. Workflow in `.github/workflows/cd_react_frontend.yml`.
+
+##### Backend
+
+Workflow update in progress...
+
+## Todo
+- [ ] Add ELK
+- [ ] Finish DPService
+- [ ] Add Terraform
+- [ ] Add k8s
+- [ ] Update deployment workflow
+- [ ] Add sonarqube
+- [ ] Add tests
 
