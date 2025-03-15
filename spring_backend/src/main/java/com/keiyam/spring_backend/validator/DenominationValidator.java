@@ -4,7 +4,7 @@ import com.keiyam.spring_backend.annotation.ValidDenominations;
 import com.keiyam.spring_backend.config.DenominationConfig;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -15,15 +15,11 @@ import java.util.List;
  * Validator for checking if the provided denominations are valid.
  */
 @Component
+@RequiredArgsConstructor
 public class DenominationValidator implements
         ConstraintValidator<ValidDenominations, List<BigDecimal>> {
 
     private final DenominationConfig denominationConfig;
-
-    @Autowired
-    public DenominationValidator(DenominationConfig denominationConfig) {
-        this.denominationConfig = denominationConfig;
-    }
 
     @Override
     public void initialize(ValidDenominations validDenominations) {
