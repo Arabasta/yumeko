@@ -18,7 +18,7 @@ public abstract class AbstractCoinChangeService {
      *
      * @param denominations the list of denominations to check and sort
      */
-    protected void sortDenominationsIfNeeded(List<BigDecimal> denominations) {
+    protected static void sortDenominationsIfNeeded(List<BigDecimal> denominations) {
         if (!ListUtil.isSortedAscending(denominations)) {
             Collections.sort(denominations);
         }
