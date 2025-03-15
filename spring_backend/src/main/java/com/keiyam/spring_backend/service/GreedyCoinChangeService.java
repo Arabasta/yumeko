@@ -68,16 +68,4 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
         return amount;
     }
 
-    /**
-     * Adds the number of coins to deque
-     *
-     * @param denomination the coin denomination to add
-     * @param numCoins     the number of coins to add
-     * @param result       the list to store the resulting coins
-     */
-    private void addCoinsToResult(BigDecimal denomination, int numCoins, Deque<BigDecimal> result) {
-        for (int i = 0; i < numCoins; i++) {
-            result.addFirst(denomination); // add to head so sorting in ascending isn't needed
-        }
-    }
 }
