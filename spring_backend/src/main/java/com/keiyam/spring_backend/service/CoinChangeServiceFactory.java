@@ -16,10 +16,9 @@ import java.util.List;
  * Factory instead of strategy pattern cause algo is only set once on startup
  */
 @Service
-@Getter
 public class CoinChangeServiceFactory {
     private static final Logger logger = LoggerFactory.getLogger(CoinChangeServiceFactory.class);
-    private final AbstractCoinChangeService coinChangeService;
+    @Getter private final AbstractCoinChangeService coinChangeService;
     private final DenominationConfig denominationConfig;
 
     @Autowired
