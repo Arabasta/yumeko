@@ -5,7 +5,11 @@ import java.util.List;
 /**
  * Utility class for list operations.
  */
-public class ListUtil {
+public final class ListUtil {
+
+    private ListUtil() {
+        throw new UnsupportedOperationException("This class cannot be instantiated");
+    }
 
     /**
      * Checks if the given list is sorted in ascending order.
