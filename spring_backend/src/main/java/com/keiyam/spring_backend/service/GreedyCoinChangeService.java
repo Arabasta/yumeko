@@ -62,6 +62,10 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
             amount = amount.remainder(currentDenomination);
 
             addCoinsToResult(currentDenomination, numCoins, result);
+
+            if (amount.compareTo(BigDecimal.ZERO) == 0) {
+                return;
+            }
         }
     }
 
