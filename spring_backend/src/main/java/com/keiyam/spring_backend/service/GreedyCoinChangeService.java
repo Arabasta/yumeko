@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.logging.Logger;
@@ -33,9 +32,10 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
         logger.info("Calculating minimum coins for amount: " + request.getAmount());
         BigDecimal amount = request.getAmount();
         List<BigDecimal> denominations = request.getDenominations();
-        Deque<BigDecimal> result = new ArrayDeque<>();
 
         sortDenominationsIfNeeded(denominations);
+
+        Deque<BigDecimal> result = initDequeWithMinCapacity(denominations, amount);
 
         amount = calculateCoins(amount, denominations, result);
 

@@ -4,6 +4,8 @@ import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.util.ListUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
@@ -22,6 +24,19 @@ public abstract class AbstractCoinChangeService {
         if (!ListUtil.isSortedAscending(denominations)) {
             Collections.sort(denominations);
         }
+    }
+
+    /**
+     * Initializes the result deque with the minimum required capacity.
+     *
+     * @param denominations the list of denominations
+     * @param amount        the amount to be changed
+     * @return a new ArrayDeque with the minimum required capacity
+     */
+    protected static ArrayDeque<BigDecimal> initDequeWithMinCapacity(List<BigDecimal> denominations, BigDecimal amount) {
+        BigDecimal largestDenomination = denominations.get(denominations.size() - 1);
+        int minCapacityRequired = amount.divide(largestDenomination, RoundingMode.DOWN).intValue();
+        return new ArrayDeque<>(minCapacityRequired);
     }
 
     /**
