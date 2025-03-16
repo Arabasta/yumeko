@@ -34,6 +34,7 @@ public class CoinChangeServiceFactory {
         }
     }
 
+    // todo: replace with Pearson's algorithm
     private boolean isDenominationsValidForGreedy() {
         List<BigDecimal> denoms = new ArrayList<>(denominationConfig.getDenominations());
         denoms.sort(Comparator.naturalOrder());
