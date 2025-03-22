@@ -26,4 +26,20 @@ public final class ListUtil {
         }
         return true;
     }
+
+    /**
+     * Checks if the given list is sorted in descending order.
+     *
+     * @param list the list to check
+     * @param <T> the type of elements in the list
+     * @return true if the list is sorted in descending order, false otherwise
+     */
+    public static <T extends Comparable<T>> boolean isSortedDescending(List<T> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i).compareTo(list.get(i + 1)) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
