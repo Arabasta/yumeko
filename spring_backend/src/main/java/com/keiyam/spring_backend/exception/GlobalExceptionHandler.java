@@ -34,12 +34,12 @@ public class GlobalExceptionHandler {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "400", description = "Invalid coin change request",
+            @ApiResponse(responseCode = "422", description = "Invalid coin change request",
                     content = @Content(schema = @Schema(implementation = String.class)))
     })
     @ExceptionHandler(InvalidCoinChangeRequestException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<String> handleInvalidCoinChangeRequestException(InvalidCoinChangeRequestException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
