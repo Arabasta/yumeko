@@ -52,9 +52,9 @@ public class CoinChangeControllerV1 {
     @PostMapping("minimum-coins")
     public ResponseEntity<CoinChangeResponse> getMinimumCoins(@Valid @RequestBody CoinChangeRequest request) {
         logger.info("Received request to calculate minimum coins for amount: {}", request.getAmount());
+        long startTime = System.nanoTime();
         requestMetrics.incrementRequestCount();
 
-        long startTime = System.nanoTime();
         try {
             var coins = coinChangeServiceFactory.getCoinChangeService().calculateMinCoinChange(request);
             logger.info("Successfully calculated coins: {}", coins);
