@@ -8,7 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Configuration
@@ -16,10 +16,10 @@ import java.util.List;
 public class DenominationConfig {
     private static final Logger logger = LoggerFactory.getLogger(DenominationConfig.class);
 
-    private List<BigDecimal> denominations;
+    private Set<BigDecimal> denominations;
 
     @CacheEvict(value = "coinChangeResults", allEntries = true)
-    public void setDenominations(List<BigDecimal> denominations) {
+    public void setDenominations(Set<BigDecimal> denominations) {
         this.denominations = denominations;
         logger.info("Loaded denominations: {}", denominations);
     }

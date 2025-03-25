@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class DenominationValidator implements
             return true;
         }
 
-        return new HashSet<>(denominationConfig.getDenominations()).containsAll(denominations);
+        return denominationConfig.getDenominations().containsAll(denominations);
     }
 
 }
