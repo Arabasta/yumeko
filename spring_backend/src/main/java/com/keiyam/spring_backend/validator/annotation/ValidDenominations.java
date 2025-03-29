@@ -1,4 +1,4 @@
-package com.keiyam.spring_backend.annotation;
+package com.keiyam.spring_backend.validator.annotation;
 
 import com.keiyam.spring_backend.validator.DenominationValidator;
 import jakarta.validation.Constraint;

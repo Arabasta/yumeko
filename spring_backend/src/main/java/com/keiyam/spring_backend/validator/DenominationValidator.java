@@ -1,6 +1,6 @@
 package com.keiyam.spring_backend.validator;
 
-import com.keiyam.spring_backend.annotation.ValidDenominations;
+import com.keiyam.spring_backend.validator.annotation.ValidDenominations;
 import com.keiyam.spring_backend.config.DenominationConfig;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

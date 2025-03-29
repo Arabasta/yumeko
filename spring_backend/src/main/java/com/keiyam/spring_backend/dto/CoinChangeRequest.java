@@ -1,6 +1,6 @@
 package com.keiyam.spring_backend.dto;
 
-import com.keiyam.spring_backend.annotation.ValidDenominations;
+import com.keiyam.spring_backend.validator.annotation.ValidDenominations;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;

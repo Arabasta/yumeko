@@ -2,7 +2,7 @@ package com.keiyam.spring_backend.controller;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.dto.CoinChangeResponse;
-import com.keiyam.spring_backend.metrics.RequestMetrics;
+import com.keiyam.spring_backend.config.RequestMetrics;
 import com.keiyam.spring_backend.service.CoinChangeServiceFactory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

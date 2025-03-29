@@ -1,4 +1,4 @@
-package com.keiyam.spring_backend.metrics;
+package com.keiyam.spring_backend.config;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
