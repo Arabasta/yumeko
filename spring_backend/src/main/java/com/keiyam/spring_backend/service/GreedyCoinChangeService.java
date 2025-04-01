@@ -2,6 +2,7 @@ package com.keiyam.spring_backend.service;
 
 import com.keiyam.spring_backend.dto.CoinChangeRequest;
 import com.keiyam.spring_backend.exception.InvalidCoinChangeRequestException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -9,15 +10,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Deque;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Service for calculating the minimum number of coins needed to make up a given amount.
  */
+@Slf4j
 @Service
 public class GreedyCoinChangeService extends AbstractCoinChangeService {
-
-    private static final Logger logger = Logger.getLogger(GreedyCoinChangeService.class.getName());
 
     /**
      * Calculates the minimum number of coins needed to make up the given amount using the provided denominations.
@@ -29,7 +28,7 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
     @Override
     @Cacheable(value = "coinChangeResults", key = "#request.amount.toString() + '-' + #request.denominations.hashCode()")
     public Deque<BigDecimal> calculateMinCoinChange(CoinChangeRequest request) {
-        logger.info("Calculating minimum coins for amount: " + request.getAmount());
+        log.info("Calculating minimum coins for amount: {}", request.getAmount());
         BigDecimal amount = request.getAmount();
         List<BigDecimal> denominations = request.getDenominations();
 
@@ -42,7 +41,7 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
             throw new InvalidCoinChangeRequestException("Cannot make the exact amount with the given denominations.");
         }
 
-        logger.info("Calculated minimum coins: " + result);
+        log.info("Calculated minimum coins: {}", result);
         return result;
     }
 
