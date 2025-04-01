@@ -1,17 +1,18 @@
 
 ## About
 
-Single REST API coin change app. Originally for an internship take home assignment, I expanded on this project by adding a bunch of new stuff.
+App with 1 GET endpoint. Originally a take home assignment for an internship, expanding on this just for fun.
 
 ## Tech Stack
 
 - React (not updated)
 - Spring Boot
+  - actuator, aop, cache
 - Docker
 - Redis
 - Prometheus / Grafana
-- AWS
-- Github Actions
+- AWS (not updated)
+- Github Actions (not updated)
 
 ---
 
@@ -50,7 +51,7 @@ POST: `http://localhost:8080/api/v1/coin-change`
 
 #### Response
 
-The API will respond with the smallest list of coins needed to make the given amount.
+API will respond with the smallest list of coins needed to make the given amount.
 
 ```json
 {
@@ -62,6 +63,13 @@ The API will respond with the smallest list of coins needed to make the given am
   ]
 }
 ```
+
+---
+
+# AOP
+
+todo: add docs
+
 
 ---
 
@@ -109,15 +117,16 @@ Credentials: admin/admin
 
 ## Deployment
 
-##### Frontend
+##### Frontend (gonnna delete FE)
 
-Frontend deployed to S3 using GitHub Actions. Workflow in `.github/workflows/cd_react_frontend.yml`.
+No
 
 ##### Backend
 
 Workflow update in progress...
 
 ## Todo
+- [x] Add AOP
 - [ ] Add ELK
 - [ ] Finish DPService
 - [ ] Add Terraform
