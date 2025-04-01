@@ -28,7 +28,11 @@ On aarch64 (Apple Silicon Macs)
 ```bash
 chmod +x docker-buildx-aarch64.sh 
 ./docker-buildx-aarch64.sh
-docker compose up
+```
+
+On windows
+```bash
+idk
 ```
 
 ---
@@ -100,11 +104,34 @@ URL: http://localhost:9090
 
 Total requests:
 
-`coin_change_requests_total`
+`api_requests_total{application="spring-backend"}`
 
 Average request duration:
 
-`rate(coin_change_request_duration_seconds_sum[1m]) / rate(coin_change_request_duration_seconds_count[1m])`
+`rate(api_request_duration_seconds_sum{application="coin-change-service"}[5m]) / 
+rate(api_request_duration_seconds_count{application="coin-change-service"}[5m])`
+
+
+Error rate (%)
+`sum(rate(api_requests_failure_total[5m])) / 
+sum(rate(api_requests_total[5m])) * 100`
+
+
+Throughput
+`rate(api_requests_total{application="spring-backend"}[5m])`
+
+CPU Usage
+`rate(api_requests_total{application="spring-backend"}[5m])`
+
+Heap
+`jvm_memory_used_bytes{application="spring-backend", area="heap"}
+`
+
+Garbage collection
+`jvm_gc_pause_seconds_sum{application="spring-backend"}`
+
+Threads
+`jvm_threads_live_threads{application="spring-backend"}`
 
 
 ## Grafana
