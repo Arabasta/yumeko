@@ -2,7 +2,12 @@ package com.keiyam.spring_backend.controller.aspect;
 
 import org.aspectj.lang.annotation.Pointcut;
 
-public class ControllerPointcuts {
+public final class ControllerPointcuts {
+
+    private ControllerPointcuts() {
+        throw new UnsupportedOperationException("This class cannot be instantiated");
+    }
+    
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)" +
             " && within(com.keiyam.spring_backend.controller..*)")
     public void restControllerClasses() {}
