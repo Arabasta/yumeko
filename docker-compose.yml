@@ -22,8 +22,11 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alerts.yml:/etc/prometheus/alerts.yml  # alerts file mapping
+      - prometheus_data:/prometheus  # persistent storage for metrics
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
     depends_on:
       - spring-backend
 
@@ -38,3 +41,4 @@ services:
 volumes:
   redis_data:
   grafana_data:
+  prometheus_data:
