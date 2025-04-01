@@ -37,9 +37,8 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
 
         Deque<BigDecimal> result = initDequeWithMinCapacity(denominations, amount);
 
-        calculateCoins(amount, denominations, result);
-
-        if (amount.compareTo(BigDecimal.ZERO) != 0) {
+        BigDecimal remainingAmount = calculateCoins(amount, denominations, result);
+        if (remainingAmount.compareTo(BigDecimal.ZERO) != 0) {
             throw new InvalidCoinChangeRequestException("Cannot make the exact amount with the given denominations.");
         }
 
@@ -53,7 +52,7 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
      * @param denominations the list of available denominations
      * @param result        the list to store the resulting coins
      */
-    private void calculateCoins(BigDecimal amount, List<BigDecimal> denominations, Deque<BigDecimal> result) {
+    private BigDecimal calculateCoins(BigDecimal amount, List<BigDecimal> denominations, Deque<BigDecimal> result) {
         for (int i = denominations.size() - 1; i >= 0; i--) {
             BigDecimal currentDenomination = denominations.get(i);
 
@@ -64,9 +63,10 @@ public class GreedyCoinChangeService extends AbstractCoinChangeService {
             addCoinsToResult(currentDenomination, numCoins, result);
 
             if (amount.compareTo(BigDecimal.ZERO) == 0) {
-                return;
+                break;
             }
         }
+        return amount;
     }
 
 }
